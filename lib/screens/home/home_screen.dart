@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:to_do/widgets/custom_scaffold.dart';
 
 import './tasks_listview.dart';
 import './task_input_field.dart';
@@ -8,16 +9,14 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('To Do'),
-      ),
+    return MyScaffold(
+      appBarTitle: 'To Do',
       body: Stack(
         children: const [
           TasksList(),
           Positioned(
-            left: 10,
-            right: 10,
+            left: 0,
+            right: 0,
             bottom: 10,
             child: TaskInputTextField(),
           ),
