@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:to_do/widgets/custom_textfield.dart';
 
-import '../views/tasks_list.dart';
+import './tasks_listview.dart';
+import './task_input_field.dart';
 
 class MyHomePage extends StatelessWidget {
   const MyHomePage({Key? key}) : super(key: key);
