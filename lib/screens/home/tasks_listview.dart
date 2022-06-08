@@ -10,7 +10,8 @@ class TasksList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<TaskModel> listOfTasks = Provider.of<TaskProvider>(context).getTasks;
+    List<TaskModel> listOfTasks =
+        Provider.of<TaskProvider>(context).getTasks.reversed.toList();
     return FutureBuilder(
       future:
           Provider.of<TaskProvider>(context, listen: false).fetchAndSetTasks(),

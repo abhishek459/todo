@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:to_do/utils/db_helper.dart';
 
 class TaskModel with ChangeNotifier {
   final String taskTitle;
@@ -14,5 +15,6 @@ class TaskModel with ChangeNotifier {
   void toggleTaskStatus() {
     isCompleted = true;
     notifyListeners();
+    DBHelper.markTaskAsComplete(timeStamp.toIso8601String());
   }
 }

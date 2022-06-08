@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:sqflite/sqflite.dart' as sql;
 import 'package:path/path.dart' as path;
 
@@ -26,6 +28,17 @@ class DBHelper {
 
   static Future<List<Map<String, dynamic>>> fetchTasks() async {
     final database = await DBHelper.database();
-    return database.query('tasks');
+    return database.query('tasks', orderBy: 'id');
+  }
+
+  static Future<void> markTaskAsComplete(String taskId) async {
+    final database = await DBHelper.database();
+    try {
+      await database
+          .rawUpdate('UPDATE tasks SET completed = 1 WHERE ID = \'$taskId\'')
+          .then((value) => print('Marked as complete'));
+    } catch (e) {
+      print(e);
+    }
   }
 }
