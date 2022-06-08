@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:to_do/widgets/custom_scaffold.dart';
 
 import './tasks_listview.dart';
@@ -10,7 +11,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
-      appBarTitle: 'To Do',
+      appBarTitle: DateFormat('EEE, d MMM').format(DateTime.now()),
       body: Stack(
         children: const [
           TasksList(),
