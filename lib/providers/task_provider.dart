@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 import '../models/task_model.dart';
 
-class TaskProvider extends ChangeNotifier {
+class TaskProvider with ChangeNotifier {
   final List<TaskModel> _tasks = [];
 
   List<TaskModel> get getTasks => _tasks;

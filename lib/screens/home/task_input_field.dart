@@ -36,13 +36,14 @@ class _TaskInputTextFieldState extends State<TaskInputTextField> {
 
     return TextFormField(
       decoration: InputDecoration(
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-        hintText: 'Add a task!',
+        hintText: 'Add a task...',
         suffixIcon: IconButton(
-          icon: const Icon(Icons.add),
+          icon: const Icon(Icons.check),
           onPressed: addTask,
+          splashRadius: 25,
         ),
       ),
+      style: Theme.of(context).textTheme.displayMedium,
       inputFormatters: [
         FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]'))
       ],
