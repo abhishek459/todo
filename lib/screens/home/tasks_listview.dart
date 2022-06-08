@@ -11,12 +11,18 @@ class TasksList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<TaskModel> listOfTasks = Provider.of<TaskProvider>(context).getTasks;
-    return ListView.builder(
-      itemCount: listOfTasks.length,
-      itemBuilder: (context, index) => ChangeNotifierProvider.value(
-        value: listOfTasks[index],
-        child: const TaskItem(),
-      ),
+    return FutureBuilder(
+      future:
+          Provider.of<TaskProvider>(context, listen: false).fetchAndSetTasks(),
+      builder: (context, snapshot) =>
+          (snapshot.connectionState == ConnectionState.waiting)
+              ? ListView.builder(
+                  itemCount: listOfTasks.length,
+                  itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                        value: listOfTasks[index],
+                        child: const TaskItem(),
+                      ))
+              : const Center(child: CircularProgressIndicator()),
     );
   }
 }
