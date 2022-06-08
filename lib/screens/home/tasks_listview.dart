@@ -20,6 +20,8 @@ class TasksList extends StatelessWidget {
               ? ListView.builder(
                   itemCount: listOfTasks.length,
                   itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                        key: ValueKey(
+                            listOfTasks[index].timeStamp.toIso8601String()),
                         value: listOfTasks[index],
                         child: const TaskItem(),
                       ))

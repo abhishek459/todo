@@ -33,12 +33,7 @@ class DBHelper {
 
   static Future<void> markTaskAsComplete(String taskId) async {
     final database = await DBHelper.database();
-    try {
-      await database
-          .rawUpdate('UPDATE tasks SET completed = 1 WHERE ID = \'$taskId\'')
-          .then((value) => print('Marked as complete'));
-    } catch (e) {
-      print(e);
-    }
+    await database
+        .rawUpdate('UPDATE tasks SET completed = 1 WHERE ID = \'$taskId\'');
   }
 }
