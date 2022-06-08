@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:to_do/utils/date_formatter.dart';
 
@@ -15,17 +16,17 @@ class TasksList extends StatelessWidget {
     return FutureBuilder(
       future:
           Provider.of<TaskProvider>(context, listen: false).fetchAndSetTasks(),
-      builder: (context, snapshot) =>
-          (snapshot.connectionState == ConnectionState.waiting)
-              ? ListView.builder(
-                  itemCount: listOfTasks.length,
-                  itemBuilder: (context, index) => ChangeNotifierProvider.value(
-                        key: ValueKey(
-                            listOfTasks[index].timeStamp.toIso8601String()),
-                        value: listOfTasks[index],
-                        child: const TaskItem(),
-                      ))
-              : const Center(child: CircularProgressIndicator()),
+      builder: (context, snapshot) => (snapshot.connectionState ==
+              ConnectionState.waiting)
+          ? ListView.builder(
+              itemCount: listOfTasks.length,
+              itemBuilder: (context, index) => ChangeNotifierProvider.value(
+                key: ValueKey(listOfTasks[index].timeStamp.toIso8601String()),
+                value: listOfTasks[index],
+                child: const TaskItem(),
+              ),
+            )
+          : const Center(child: CircularProgressIndicator()),
     );
   }
 }
@@ -64,7 +65,10 @@ class TaskItem extends StatelessWidget {
                     Icons.check,
                     color: Colors.green,
                   ),
-                  onPressed: taskItem.toggleTaskStatus,
+                  onPressed: () => {
+                    taskItem.toggleTaskStatus(),
+                    SystemSound.play(SystemSoundType.click),
+                  },
                   splashRadius: 25,
                 ),
               ),

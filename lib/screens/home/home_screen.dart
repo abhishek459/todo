@@ -12,15 +12,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MyScaffold(
       appBarTitle: DateFormat('EEE, d MMM').format(DateTime.now()),
-      body: Stack(
+      body: Column(
         children: const [
-          TasksList(),
-          Positioned(
-            left: 0,
-            right: 0,
-            bottom: 10,
-            child: TaskInputTextField(),
-          ),
+          Flexible(child: TasksList()),
+          TaskInputTextField(),
         ],
       ),
     );

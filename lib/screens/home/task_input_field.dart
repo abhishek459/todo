@@ -34,24 +34,31 @@ class _TaskInputTextFieldState extends State<TaskInputTextField> {
       finishingUp();
     }
 
-    return TextFormField(
-      decoration: InputDecoration(
-        hintText: 'Add a task...',
-        suffixIcon: IconButton(
-          icon: const Icon(Icons.check),
-          onPressed: addTask,
-          splashRadius: 25,
+    return Container(
+      decoration: BoxDecoration(
+          border: Border.all(color: Theme.of(context).hintColor),
+          borderRadius: BorderRadius.circular(15)),
+      padding: const EdgeInsets.all(10),
+      child: TextFormField(
+        decoration: InputDecoration(
+          hintText: 'Add a task...',
+          counterText: "",
+          suffixIcon: IconButton(
+            icon: const Icon(Icons.check),
+            onPressed: addTask,
+            splashRadius: 25,
+          ),
         ),
+        style: Theme.of(context).textTheme.displayMedium,
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 !,.]'))
+        ],
+        textInputAction: TextInputAction.done,
+        textCapitalization: TextCapitalization.sentences,
+        controller: _taskController,
+        onEditingComplete: addTask,
+        maxLength: 100,
       ),
-      style: Theme.of(context).textTheme.displayMedium,
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r'[a-zA-Z0-9 ]'))
-      ],
-      textInputAction: TextInputAction.done,
-      textCapitalization: TextCapitalization.sentences,
-      controller: _taskController,
-      onEditingComplete: addTask,
-      maxLength: 100,
     );
   }
 
