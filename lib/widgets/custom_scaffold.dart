@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 class MyScaffold extends StatelessWidget {
   final String appBarTitle;
   final Widget body;
-  const MyScaffold({Key? key, required this.appBarTitle, required this.body})
-      : super(key: key);
+  const MyScaffold({
+    Key? key,
+    required this.appBarTitle,
+    required this.body,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

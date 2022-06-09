@@ -1,23 +1,73 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do/widgets/custom_scaffold.dart';
 
-import './tasks_listview.dart';
+import 'todays_task_list.dart';
 import './task_input_field.dart';
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MyScaffold(
-      appBarTitle: DateFormat('EEE, d MMM').format(DateTime.now()),
-      body: Column(
-        children: const [
-          Flexible(child: TasksList()),
-          TaskInputTextField(),
-        ],
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(DateFormat('EEE, MMM d').format(DateTime.now())),
+          bottom: const TabBar(
+            tabs: [
+              Tab(
+                icon: Icon(Icons.home),
+                text: 'Home',
+              ),
+              Tab(
+                icon: Icon(Icons.history),
+                text: 'History',
+              ),
+            ],
+          ),
+        ),
+        body: const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: TabBarView(
+            physics:
+                BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+            children: [
+              TodaysTasks(),
+              HistoryOfTasks(),
+            ],
+          ),
+        ),
       ),
+    );
+  }
+}
+
+class TodaysTasks extends StatelessWidget {
+  const TodaysTasks({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: const [
+        Flexible(child: TasksList()),
+        TaskInputTextField(),
+      ],
+    );
+  }
+}
+
+class HistoryOfTasks extends StatelessWidget {
+  const HistoryOfTasks({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Text('History of Tasks',
+          style: TextStyle(
+            color: Theme.of(context).hintColor,
+          )),
     );
   }
 }

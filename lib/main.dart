@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import './providers/task_provider.dart';
-import './screens/home/home_screen.dart';
+
 import './assets/theme/dark_theme.dart';
 import './assets/theme/light_theme.dart';
+import './screens/home/home_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         theme: lightTheme(),
         darkTheme: darkTheme(),
         themeMode: ThemeMode.system,
-        home: const MyHomePage(),
+        home: const HomeScreen(),
       ),
     );
   }

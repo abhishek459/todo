@@ -18,6 +18,8 @@ class TasksList extends StatelessWidget {
       builder: (context, snapshot) => (snapshot.connectionState ==
               ConnectionState.waiting)
           ? ListView.builder(
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
               itemCount: listOfTasks.length,
               itemBuilder: (context, index) => ChangeNotifierProvider.value(
                 key: ValueKey(listOfTasks[index].timeStamp.toIso8601String()),

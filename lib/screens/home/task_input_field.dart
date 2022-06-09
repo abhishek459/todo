@@ -35,11 +35,12 @@ class _TaskInputTextFieldState extends State<TaskInputTextField> {
     }
 
     return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Theme.of(context).hintColor),
-          borderRadius: BorderRadius.circular(15)),
       padding: const EdgeInsets.all(10),
-      child: TextFormField(
+      decoration: BoxDecoration(
+        border: Border.all(color: Theme.of(context).hintColor, width: 2),
+        borderRadius: BorderRadius.circular(15),
+      ),
+      child: TextField(
         decoration: InputDecoration(
           hintText: 'Add a task...',
           counterText: "",
