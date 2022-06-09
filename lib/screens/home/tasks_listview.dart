@@ -51,13 +51,9 @@ class TaskItem extends StatelessWidget {
       ),
       trailing: Consumer<TaskModel>(
         builder: (context, value, child) => (taskItem.isCompleted)
-            ? const CircleAvatar(
-                backgroundColor: Colors.green,
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                ),
-              )
+            ? CircleAvatar(
+                backgroundColor: Colors.transparent,
+                child: Image.asset('lib/assets/icons/check.png'))
             : CircleAvatar(
                 backgroundColor: Colors.transparent,
                 child: IconButton(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import './theme/dark_theme.dart';
-import './theme/light_theme.dart';
 import './providers/task_provider.dart';
 import './screens/home/home_screen.dart';
+import './assets/theme/dark_theme.dart';
+import './assets/theme/light_theme.dart';
 
 void main() {
   runApp(const MyApp());
