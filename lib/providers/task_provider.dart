@@ -8,6 +8,19 @@ class TaskProvider with ChangeNotifier {
 
   List<TaskModel> get getTasks => _tasks;
 
+  Future<void> fetchAndSetTodaysTasks() async {
+    final List<Map<String, dynamic>> dataList =
+        await DBHelper.fetchTodaysTasks();
+    _tasks = dataList
+        .map((element) => TaskModel(
+              taskTitle: element['title'] as String,
+              timeStamp: DateTime.parse(element['id'] as String),
+              isCompleted: (element['completed'] == 1) ? true : false,
+            ))
+        .toList();
+    notifyListeners();
+  }
+
   Future<void> fetchAndSetTasks() async {
     final List<Map<String, dynamic>> dataList = await DBHelper.fetchTasks();
     _tasks = dataList
@@ -29,5 +42,12 @@ class TaskProvider with ChangeNotifier {
       'completed': (task.isCompleted) ? 1 : 0,
     };
     DBHelper.insertTask(sqlData);
+  }
+
+  void deleteTask(String taskId) {
+    _tasks.removeWhere(
+        (element) => element.timeStamp.toIso8601String() == taskId);
+    notifyListeners();
+    DBHelper.deleteTask(taskId);
   }
 }
