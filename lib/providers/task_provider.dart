@@ -5,8 +5,10 @@ import '../models/task_model.dart';
 
 class TaskProvider with ChangeNotifier {
   List<TaskModel> _tasks = [];
+  List<TaskModel> _allTasks = [];
 
   List<TaskModel> get getTasks => _tasks;
+  List<TaskModel> get getAllTasks => _allTasks;
 
   Future<void> fetchAndSetTodaysTasks() async {
     final List<Map<String, dynamic>> dataList =
@@ -17,18 +19,22 @@ class TaskProvider with ChangeNotifier {
               timeStamp: DateTime.parse(element['id'] as String),
               isCompleted: (element['completed'] == 1) ? true : false,
             ))
+        .toList()
+        .reversed
         .toList();
     notifyListeners();
   }
 
   Future<void> fetchAndSetTasks() async {
     final List<Map<String, dynamic>> dataList = await DBHelper.fetchTasks();
-    _tasks = dataList
+    _allTasks = dataList
         .map((element) => TaskModel(
               taskTitle: element['title'] as String,
               timeStamp: DateTime.parse(element['id'] as String),
               isCompleted: (element['completed'] == 1) ? true : false,
             ))
+        .toList()
+        .reversed
         .toList();
     notifyListeners();
   }

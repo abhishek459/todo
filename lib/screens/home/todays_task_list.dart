@@ -5,19 +5,30 @@ import '../../models/task_model.dart';
 import '../../providers/task_provider.dart';
 import '../../utils/date_methods.dart';
 
-class TasksList extends StatelessWidget {
-  const TasksList({Key? key}) : super(key: key);
+class TodaysTasksList extends StatefulWidget {
+  const TodaysTasksList({Key? key}) : super(key: key);
 
   @override
+  State<TodaysTasksList> createState() => _TodaysTasksListState();
+}
+
+class _TodaysTasksListState extends State<TodaysTasksList> {
+  @override
   Widget build(BuildContext context) {
-    List<TaskModel> listOfTasks =
-        Provider.of<TaskProvider>(context).getTasks.reversed.toList();
     return FutureBuilder(
       future: Provider.of<TaskProvider>(context, listen: false)
           .fetchAndSetTodaysTasks(),
-      builder: (context, snapshot) => (snapshot.connectionState ==
-              ConnectionState.waiting)
-          ? ListView.builder(
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          List<TaskModel> listOfTasks =
+              Provider.of<TaskProvider>(context).getTasks;
+
+          if (listOfTasks.isEmpty) {
+            return const Center(
+              child: Text('No tasks added today'),
+            );
+          } else {
+            return ListView.builder(
               physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics()),
               itemCount: listOfTasks.length,
@@ -26,8 +37,12 @@ class TasksList extends StatelessWidget {
                 value: listOfTasks[index],
                 child: const TaskItem(),
               ),
-            )
-          : const Center(child: CircularProgressIndicator()),
+            );
+          }
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+      },
     );
   }
 }

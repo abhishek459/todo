@@ -23,18 +23,8 @@ class _TaskInputTextFieldState extends State<TaskInputTextField> {
 
   @override
   Widget build(BuildContext context) {
-    void addTask() {
-      if (_taskController.text.isEmpty) {
-        finishingUp();
-        return;
-      }
-      TaskModel taskData =
-          TaskModel(taskTitle: _taskController.text, timeStamp: DateTime.now());
-      Provider.of<TaskProvider>(context, listen: false).addTask(taskData);
-      finishingUp();
-    }
-
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         border: Border.all(color: Theme.of(context).hintColor, width: 2),
@@ -61,6 +51,17 @@ class _TaskInputTextFieldState extends State<TaskInputTextField> {
         maxLength: 100,
       ),
     );
+  }
+
+  void addTask() {
+    if (_taskController.text.isEmpty) {
+      finishingUp();
+      return;
+    }
+    TaskModel taskData =
+        TaskModel(taskTitle: _taskController.text, timeStamp: DateTime.now());
+    Provider.of<TaskProvider>(context, listen: false).addTask(taskData);
+    finishingUp();
   }
 
   void finishingUp() {

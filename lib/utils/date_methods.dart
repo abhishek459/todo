@@ -2,7 +2,8 @@ import 'package:intl/intl.dart';
 
 class DateMethods {
   static String dateFormatter(DateTime dateTime) {
-    if (dateTime.hour == DateTime.now().hour) {
+    if (dateTime.hour == DateTime.now().hour &&
+        dateTime.day == DateTime.now().day) {
       int minutes = DateTime.now().difference(dateTime).inMinutes;
       return minutes == 0
           ? 'few seconds ago'
