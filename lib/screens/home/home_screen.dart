@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:to_do/screens/home/all_tasks_list.dart';
 
 import '../../widgets/custom_scaffold.dart';
+import '../tasks/all_tasks_list.dart';
 import './todays_task_list.dart';
 import './task_input_field.dart';
 
@@ -29,34 +29,24 @@ class _HomeScreenState extends State<HomeScreen> {
     'Summary'
   ];
 
+  List<Widget> tabs = const [
+    TodaysTasks(),
+    AllTasksList(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return MyScaffold(
       appBarTitle: appBarTitles[_activePage],
-      body: PageView(
-        physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics()),
-        controller: _pageController,
-        children: const [
-          TodaysTasks(),
-          AllTasksList(),
-        ],
-        onPageChanged: (index) {
-          setState(() {
-            _activePage = index;
-          });
-        },
-      ),
+      body: tabs[_activePage],
       bottomNavigationBar: BottomNavigationBar(
         selectedIconTheme: const IconThemeData(size: 35),
         selectedFontSize: 0,
         currentIndex: _activePage,
         onTap: (index) {
-          _pageController.animateToPage(
-            index,
-            duration: const Duration(milliseconds: 350),
-            curve: Curves.ease,
-          );
+          setState(() {
+            _activePage = index;
+          });
         },
         type: BottomNavigationBarType.shifting,
         items: [
