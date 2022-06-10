@@ -19,7 +19,7 @@ class _TodaysTasksListState extends State<TodaysTasksList> {
       future: Provider.of<TaskProvider>(context, listen: false)
           .fetchAndSetTodaysTasks(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.done) {
           List<TaskModel> listOfTasks =
               Provider.of<TaskProvider>(context).getTasks;
 

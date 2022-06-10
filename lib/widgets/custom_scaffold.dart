@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class MyScaffold extends StatelessWidget {
   final String appBarTitle;
   final Widget body;
+  final Widget? bottomNavigationBar;
   const MyScaffold({
     Key? key,
     required this.appBarTitle,
     required this.body,
+    this.bottomNavigationBar,
   }) : super(key: key);
 
   @override
@@ -26,6 +28,7 @@ class MyScaffold extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: body,
       ),
+      bottomNavigationBar: bottomNavigationBar,
     );
   }
 }

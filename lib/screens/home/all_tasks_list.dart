@@ -18,10 +18,9 @@ class _AllTasksListState extends State<AllTasksList> {
       future:
           Provider.of<TaskProvider>(context, listen: false).fetchAndSetTasks(),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
+        if (snapshot.connectionState == ConnectionState.done) {
           List<TaskModel> listOfTasks =
               Provider.of<TaskProvider>(context).getAllTasks;
-
           return ListView.builder(
             itemCount: listOfTasks.length,
             itemBuilder: (context, index) => ListTile(

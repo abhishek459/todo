@@ -18,14 +18,14 @@ class DBHelper {
   static Future<List<Map<String, dynamic>>> fetchTodaysTasks() async {
     final database = await DBHelper.database();
     String today = DateMethods.today();
-    return database
+    return await database
         // .rawQuery('SELECT * FROM tasks WHERE id LIKE \'%$today%\'');
         .query('tasks', where: "id LIKE ?", whereArgs: ['%$today%']);
   }
 
   static Future<List<Map<String, dynamic>>> fetchTasks() async {
     final database = await DBHelper.database();
-    return database.query('tasks');
+    return await database.query('tasks');
   }
 
   static Future<void> insertTask(Map<String, Object> data) async {
