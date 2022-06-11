@@ -40,7 +40,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   void addTask(TaskModel task) {
-    _tasks.add(task);
+    _tasks.insert(0, task);
     notifyListeners();
     final Map<String, Object> sqlData = {
       'id': task.timeStamp.toIso8601String(),
