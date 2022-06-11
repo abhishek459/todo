@@ -16,12 +16,16 @@ ThemeData lightTheme() {
       textColor: foregroundColor,
     ),
     inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+      fillColor: Colors.white,
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
       counterStyle: const TextStyle(color: foregroundColor),
       suffixIconColor: foregroundColor,
     ),
     splashColor: backgroundColor,
     hintColor: foregroundColor,
+    fontFamily: 'NotoSans',
     textTheme: const TextTheme(
       displayMedium: TextStyle(
         color: foregroundColor,

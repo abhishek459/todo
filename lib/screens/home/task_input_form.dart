@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../models/task_model.dart';
 import '../../providers/task_provider.dart';
-import 'task_input_field.dart';
+import './task_input_field.dart';
 
 class TaskInputForm extends StatefulWidget {
   const TaskInputForm({Key? key}) : super(key: key);
@@ -23,10 +23,11 @@ class _TaskInputFormState extends State<TaskInputForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
       padding: EdgeInsets.only(
-        left: 10,
-        right: 10,
+        left: 20,
+        right: 20,
         top: 20,
         bottom: 20 + MediaQuery.of(context).viewInsets.bottom,
       ),
@@ -38,7 +39,13 @@ class _TaskInputFormState extends State<TaskInputForm> {
             onEditingComplete: addTask,
           ),
           const SizedBox(height: 10),
-          ElevatedButton(onPressed: () {}, child: const Text('Save'))
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size(40, 40),
+                shape: const CircleBorder(),
+              ),
+              onPressed: addTask,
+              child: const Icon(Icons.check))
         ],
       ),
     );

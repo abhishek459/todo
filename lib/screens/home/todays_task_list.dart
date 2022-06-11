@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/task_model.dart';
 import '../../providers/task_provider.dart';
+import '../../utils/cheerful_messages.dart';
 import '../../utils/date_methods.dart';
 
 class TodaysTasksList extends StatefulWidget {
@@ -55,15 +58,20 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskItem = Provider.of<TaskModel>(context, listen: false);
-    return ListTile(
-      title: Consumer<TaskModel>(
-        builder: (context, value, _) => TaskTitle(taskItem: taskItem),
+    return Card(
+      elevation: 3,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: ListTile(
+        title: Consumer<TaskModel>(
+          builder: (context, value, _) => TaskTitle(taskItem: taskItem),
+        ),
+        subtitle: Text(
+          DateMethods.dateFormatter(taskItem.timeStamp),
+        ),
+        trailing: Consumer<TaskModel>(
+            builder: (context, value, child) =>
+                TrailingIcon(taskItem: taskItem)),
       ),
-      subtitle: Text(
-        DateMethods.dateFormatter(taskItem.timeStamp),
-      ),
-      trailing: Consumer<TaskModel>(
-          builder: (context, value, child) => TrailingIcon(taskItem: taskItem)),
     );
   }
 }
@@ -117,7 +125,7 @@ class TrailingIcon extends StatelessWidget {
             elevation: 5,
             child: InkWell(
               borderRadius: BorderRadius.circular(20),
-              onTap: taskItem.toggleTaskStatus,
+              onTap: () => _markTaskAsComplete(context),
               child: const Icon(
                 Icons.check,
                 color: Colors.green,
@@ -145,6 +153,15 @@ class TrailingIcon extends StatelessWidget {
         ],
       );
     }
+  }
+
+  void _markTaskAsComplete(BuildContext context) {
+    taskItem.toggleTaskStatus();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(cheerMeUp[Random().nextInt(cheerMeUp.length)]),
+      ),
+    );
   }
 
   void deleteTask(BuildContext context, String taskId) {
