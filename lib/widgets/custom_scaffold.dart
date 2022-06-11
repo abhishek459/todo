@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 
+import 'main_drawer.dart';
+
 class MyScaffold extends StatelessWidget {
   final String appBarTitle;
   final Widget body;
-  final Widget? bottomNavigationBar;
+  final Widget? floatingActionButton;
   const MyScaffold({
     Key? key,
     required this.appBarTitle,
     required this.body,
-    this.bottomNavigationBar,
+    this.floatingActionButton,
   }) : super(key: key);
 
   @override
@@ -24,11 +26,12 @@ class MyScaffold extends StatelessWidget {
           ),
         ),
       ),
+      drawer: const MainDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: body,
       ),
-      bottomNavigationBar: bottomNavigationBar,
+      floatingActionButton: floatingActionButton,
     );
   }
 }

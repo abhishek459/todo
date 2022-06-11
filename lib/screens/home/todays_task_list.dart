@@ -112,26 +112,34 @@ class TrailingIcon extends StatelessWidget {
       return Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: taskItem.toggleTaskStatus,
-            child: const Icon(
-              Icons.check,
-              color: Colors.green,
-              size: 35,
+          Card(
+            shape: const CircleBorder(),
+            elevation: 5,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(20),
+              onTap: taskItem.toggleTaskStatus,
+              child: const Icon(
+                Icons.check,
+                color: Colors.green,
+                size: 35,
+              ),
             ),
           ),
           const SizedBox(
             width: 10,
           ),
-          InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () =>
-                deleteTask(context, taskItem.timeStamp.toIso8601String()),
-            child: const Icon(
-              Icons.delete,
-              color: Colors.red,
-              size: 35,
+          Card(
+            shape: const CircleBorder(),
+            elevation: 5,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(20),
+              onTap: () =>
+                  deleteTask(context, taskItem.timeStamp.toIso8601String()),
+              child: const Icon(
+                Icons.delete,
+                color: Colors.red,
+                size: 35,
+              ),
             ),
           ),
         ],

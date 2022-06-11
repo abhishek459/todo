@@ -4,6 +4,9 @@ ThemeData darkTheme() {
   const Color foregroundColor = Color.fromRGBO(245, 251, 239, 1);
   const Color backgroundColor = Color.fromRGBO(24, 31, 28, 1);
   return ThemeData(
+    pageTransitionsTheme: const PageTransitionsTheme(builders: {
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    }),
     appBarTheme: const AppBarTheme(
       titleTextStyle: TextStyle(fontFamily: 'Lato', fontSize: 25),
       backgroundColor: Color.fromRGBO(123, 75, 148, 1),
@@ -12,9 +15,9 @@ ThemeData darkTheme() {
     listTileTheme: const ListTileThemeData(
       textColor: foregroundColor,
     ),
-    inputDecorationTheme: const InputDecorationTheme(
-      border: InputBorder.none,
-      counterStyle: TextStyle(color: foregroundColor),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
+      counterStyle: const TextStyle(color: foregroundColor),
       suffixIconColor: foregroundColor,
     ),
     splashColor: backgroundColor,
