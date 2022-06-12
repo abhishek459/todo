@@ -12,14 +12,27 @@ ThemeData darkTheme() {
       backgroundColor: Color.fromRGBO(123, 75, 148, 1),
     ),
     scaffoldBackgroundColor: backgroundColor,
+    cardTheme: CardTheme(
+      color: Colors.black.withOpacity(0.3),
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        side: BorderSide(color: foregroundColor.withOpacity(0.7), width: 1.5),
+        borderRadius: BorderRadius.circular(15),
+      ),
+    ),
     listTileTheme: const ListTileThemeData(
       textColor: foregroundColor,
     ),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.white,
+      fillColor: Colors.black,
+      hintStyle: const TextStyle(color: foregroundColor),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(color: foregroundColor),
+        borderSide: const BorderSide(color: foregroundColor, width: 1.5),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(color: foregroundColor, width: 1.5),
       ),
       counterStyle: const TextStyle(color: foregroundColor),
       suffixIconColor: foregroundColor,

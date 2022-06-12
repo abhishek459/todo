@@ -59,8 +59,6 @@ class TaskItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final taskItem = Provider.of<TaskModel>(context, listen: false);
     return Card(
-      elevation: 3,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: ListTile(
         title: Consumer<TaskModel>(
           builder: (context, value, _) => TaskTitle(taskItem: taskItem),
@@ -121,15 +119,17 @@ class TrailingIcon extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Card(
-            shape: const CircleBorder(),
             elevation: 5,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () => _markTaskAsComplete(context),
-              child: const Icon(
-                Icons.check,
-                color: Colors.green,
-                size: 35,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () => _markTaskAsComplete(context),
+                child: const Icon(
+                  Icons.check,
+                  color: Colors.green,
+                  size: 35,
+                ),
               ),
             ),
           ),
@@ -137,16 +137,18 @@ class TrailingIcon extends StatelessWidget {
             width: 10,
           ),
           Card(
-            shape: const CircleBorder(),
             elevation: 5,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(20),
-              onTap: () =>
-                  deleteTask(context, taskItem.timeStamp.toIso8601String()),
-              child: const Icon(
-                Icons.delete,
-                color: Colors.red,
-                size: 35,
+            child: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: InkWell(
+                borderRadius: BorderRadius.circular(20),
+                onTap: () =>
+                    deleteTask(context, taskItem.timeStamp.toIso8601String()),
+                child: const Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                  size: 35,
+                ),
               ),
             ),
           ),

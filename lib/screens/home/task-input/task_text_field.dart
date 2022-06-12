@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class TaskInputTextField extends StatelessWidget {
+class TaskInputField extends StatelessWidget {
+  final String hintText;
   final TextEditingController controller;
-  final Function()? onEditingComplete;
-  const TaskInputTextField(
-      {Key? key, required this.controller, required this.onEditingComplete})
-      : super(key: key);
+  const TaskInputField({
+    Key? key,
+    required this.controller,
+    required this.hintText,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextField(
-      decoration: const InputDecoration(
-        hintText: 'Add a task...',
+      decoration: InputDecoration(
+        hintText: hintText,
         counterText: "",
         filled: true,
       ),
@@ -23,7 +25,6 @@ class TaskInputTextField extends StatelessWidget {
       textInputAction: TextInputAction.done,
       textCapitalization: TextCapitalization.sentences,
       controller: controller,
-      onEditingComplete: onEditingComplete,
       maxLength: 100,
     );
   }

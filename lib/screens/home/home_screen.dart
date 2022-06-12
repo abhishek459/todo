@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 
 import '../../widgets/custom_scaffold.dart';
 import './todays_task_list.dart';
-import 'task_input_form.dart';
+import 'task-input/task_input_form.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () => showModalBottomSheet(
+          isScrollControlled: true,
           context: context,
           builder: (context) => const TaskInputForm(),
         ),
