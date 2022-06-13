@@ -30,7 +30,8 @@ class _AllTasksListState extends State<AllTasksList> {
               itemBuilder: (context, index) => ListTile(
                 title: Text(listOfTasks[index].taskTitle),
                 subtitle: Text(
-                    DateMethods.dateFormatter(listOfTasks[index].timeStamp)),
+                  DateMethods.dateFormatter(listOfTasks[index].timeStamp),
+                ),
               ),
             );
           } else {

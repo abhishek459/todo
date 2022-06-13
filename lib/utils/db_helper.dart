@@ -9,7 +9,7 @@ class DBHelper {
       path.join(dbPath, 'tasks.db'),
       onCreate: (db, version) {
         return db.execute(
-            'CREATE TABLE tasks(id TEXT PRIMARY KEY, title TEXT, completed INTEGER)');
+            'CREATE TABLE tasks(id TEXT PRIMARY KEY, title TEXT, deadline TEXT, completedOn TEXT, completed INTEGER)');
       },
       version: 1,
     );
@@ -19,8 +19,7 @@ class DBHelper {
     final database = await DBHelper.database();
     String today = DateMethods.today();
     return await database
-        // .rawQuery('SELECT * FROM tasks WHERE id LIKE \'%$today%\'');
-        .query('tasks', where: "id LIKE ?", whereArgs: ['%$today%']);
+        .rawQuery('SELECT * FROM tasks WHERE id LIKE \'%$today%\'');
   }
 
   static Future<List<Map<String, dynamic>>> fetchTasks() async {
@@ -39,8 +38,9 @@ class DBHelper {
 
   static Future<void> markTaskAsComplete(String taskId) async {
     final database = await DBHelper.database();
-    await database
-        .rawUpdate('UPDATE tasks SET completed = 1 WHERE id = \'$taskId\'');
+    String currentTime = DateTime.now().toIso8601String();
+    await database.rawUpdate(
+        'UPDATE tasks SET completed = 1, completedOn = \'$currentTime\' WHERE id = \'$taskId\'');
   }
 
   static Future<void> deleteTask(String taskId) async {

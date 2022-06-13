@@ -31,7 +31,7 @@ ThemeData lightTheme() {
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(color: foregroundColor, width: 1.5),
+        borderSide: BorderSide.none,
       ),
       counterStyle: const TextStyle(color: foregroundColor),
       suffixIconColor: foregroundColor,

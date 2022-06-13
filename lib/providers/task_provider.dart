@@ -14,11 +14,19 @@ class TaskProvider with ChangeNotifier {
     final List<Map<String, dynamic>> dataList =
         await DBHelper.fetchTodaysTasks();
     _tasks = dataList
-        .map((element) => TaskModel(
-              taskTitle: element['title'] as String,
-              timeStamp: DateTime.parse(element['id'] as String),
-              isCompleted: (element['completed'] == 1) ? true : false,
-            ))
+        .map(
+          (element) => TaskModel(
+            taskTitle: element['title'] as String,
+            timeStamp: DateTime.parse(element['id'] as String),
+            isCompleted: (element['completed'] == 1) ? true : false,
+            deadline: element['deadline'] == null
+                ? null
+                : DateTime.parse(element['deadline']),
+            completedOn: element['completedOn'] == null
+                ? null
+                : DateTime.parse(element['completedOn']),
+          ),
+        )
         .toList()
         .reversed
         .toList();
@@ -32,6 +40,12 @@ class TaskProvider with ChangeNotifier {
               taskTitle: element['title'] as String,
               timeStamp: DateTime.parse(element['id'] as String),
               isCompleted: (element['completed'] == 1) ? true : false,
+              deadline: element['deadline'] == null
+                  ? null
+                  : DateTime.parse(element['deadline']),
+              completedOn: element['completedOn'] == null
+                  ? null
+                  : DateTime.parse(element['completedOn']),
             ))
         .toList()
         .reversed
@@ -45,6 +59,7 @@ class TaskProvider with ChangeNotifier {
     final Map<String, Object> sqlData = {
       'id': task.timeStamp.toIso8601String(),
       'title': task.taskTitle,
+      'deadline': task.deadline?.toIso8601String() ?? 'NULL',
       'completed': (task.isCompleted) ? 1 : 0,
     };
     DBHelper.insertTask(sqlData);

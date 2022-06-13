@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import './deadline_setter.dart';
-import './services/task_input_methods.dart';
+import '../services/task_input_methods.dart';
 import './task_text_field.dart';
 
 class TaskInputForm extends StatefulWidget {
@@ -14,11 +15,16 @@ class TaskInputForm extends StatefulWidget {
 class _TaskInputFormState extends State<TaskInputForm> {
   final TextEditingController _taskController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
+  final TextEditingController _timeController = TextEditingController();
+
+  DateTime? selectedDate;
+  TimeOfDay? selectedTime;
 
   @override
   void dispose() {
     _taskController.dispose();
     _dateController.dispose();
+    _timeController.dispose();
     super.dispose();
   }
 
@@ -38,19 +44,13 @@ class _TaskInputFormState extends State<TaskInputForm> {
         mainAxisSize: MainAxisSize.min,
         children: [
           TaskInputField(
-            hintText: 'Type a task here...',
+            hintText: 'New task',
             controller: _taskController,
           ),
           verticalPadding,
-          const Align(
-            alignment: Alignment.center,
-            child: Text(
-              'Add a deadline (Optional)',
-              style: TextStyle(fontSize: 22),
-            ),
-          ),
           verticalPadding,
-          const DeadlineSetter(),
+          DeadlineSetter(
+              dateController: _dateController, timeController: _timeController),
           verticalPadding,
           Align(
             alignment: Alignment.center,
@@ -60,21 +60,49 @@ class _TaskInputFormState extends State<TaskInputForm> {
                 shape: const CircleBorder(),
               ),
               onPressed: () => {
-                TaskMethods.addTask(context, _taskController),
+                TaskMethods.addTask(
+                  context: context,
+                  title: _taskController.text,
+                  deadline: (getDeadline() == null)
+                      ? null
+                      : DateTime.parse(getDeadline()!),
+                ),
                 finishingUp(),
               },
               child: const Icon(Icons.check),
             ),
-          )
+          ),
         ],
       ),
     );
   }
 
   void finishingUp() {
-    _taskController.clear();
+    getDeadline();
     FocusScope.of(context).unfocus();
     Navigator.of(context).pop();
+  }
+
+  String? getDeadline() {
+    if (_dateController.text.isNotEmpty && _timeController.text.isEmpty) {
+      selectedDate = DateFormat('dd/MM/yyyy').parse(_dateController.text);
+      return selectedDate!.toIso8601String();
+    } else if (_dateController.text.isNotEmpty &&
+        _timeController.text.isNotEmpty) {
+      var tempDate = DateFormat('dd/MM/yyyy').parse(_dateController.text);
+      var time = DateFormat('hh:mm a').parse(_timeController.text);
+
+      selectedDate = DateTime(
+        tempDate.year,
+        tempDate.month,
+        tempDate.day,
+        time.hour,
+        time.minute,
+      );
+      return selectedDate!.toIso8601String();
+    } else {
+      return null;
+    }
   }
 }
 

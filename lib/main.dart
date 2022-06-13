@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './providers/task_provider.dart';
 
 import './assets/theme/dark_theme.dart';
 import './assets/theme/light_theme.dart';
+import './providers/task_provider.dart';
 import './screens/home/home_screen.dart';
 
 void main() {
@@ -15,8 +15,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => TaskProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => TaskProvider()),
+      ],
       child: MaterialApp(
         title: 'To Do',
         theme: lightTheme(),

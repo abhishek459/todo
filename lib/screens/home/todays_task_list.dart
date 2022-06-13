@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:to_do/screens/home/services/task_input_methods.dart';
 
 import '../../models/task_model.dart';
 import '../../providers/task_provider.dart';
-import '../../utils/cheerful_messages.dart';
 import '../../utils/date_methods.dart';
 
 class TodaysTasksList extends StatefulWidget {
@@ -27,8 +25,11 @@ class _TodaysTasksListState extends State<TodaysTasksList> {
               Provider.of<TaskProvider>(context).getTasks;
 
           if (listOfTasks.isEmpty) {
-            return const Center(
-              child: Text('No tasks added today'),
+            return Center(
+              child: Text(
+                'No tasks added today',
+                style: Theme.of(context).textTheme.displayMedium,
+              ),
             );
           } else {
             return ListView.builder(
@@ -58,13 +59,14 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskItem = Provider.of<TaskModel>(context, listen: false);
+    print(taskItem.completedOn);
     return Card(
       child: ListTile(
         title: Consumer<TaskModel>(
           builder: (context, value, _) => TaskTitle(taskItem: taskItem),
         ),
         subtitle: Text(
-          DateMethods.dateFormatter(taskItem.timeStamp),
+          DateMethods.dateFormatter(taskItem.completedOn ?? taskItem.timeStamp),
         ),
         trailing: Consumer<TaskModel>(
             builder: (context, value, child) =>
@@ -119,12 +121,13 @@ class TrailingIcon extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           Card(
+            color: Colors.white,
             elevation: 5,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(3),
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () => _markTaskAsComplete(context),
+                onTap: () => TaskMethods.markTaskAsComplete(context, taskItem),
                 child: const Icon(
                   Icons.check,
                   color: Colors.green,
@@ -137,13 +140,14 @@ class TrailingIcon extends StatelessWidget {
             width: 10,
           ),
           Card(
+            color: Colors.white,
             elevation: 5,
-            child: CircleAvatar(
-              backgroundColor: Colors.white,
+            child: Padding(
+              padding: const EdgeInsets.all(3),
               child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                onTap: () =>
-                    deleteTask(context, taskItem.timeStamp.toIso8601String()),
+                onTap: () => TaskMethods.deleteTask(
+                    context, taskItem.timeStamp.toIso8601String()),
                 child: const Icon(
                   Icons.delete,
                   color: Colors.red,
@@ -155,18 +159,5 @@ class TrailingIcon extends StatelessWidget {
         ],
       );
     }
-  }
-
-  void _markTaskAsComplete(BuildContext context) {
-    taskItem.toggleTaskStatus();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(cheerMeUp[Random().nextInt(cheerMeUp.length)]),
-      ),
-    );
-  }
-
-  void deleteTask(BuildContext context, String taskId) {
-    Provider.of<TaskProvider>(context, listen: false).deleteTask(taskId);
   }
 }
