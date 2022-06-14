@@ -13,10 +13,10 @@ ThemeData darkTheme() {
     ),
     scaffoldBackgroundColor: backgroundColor,
     cardTheme: CardTheme(
-      color: Colors.black.withOpacity(0.3),
+      color: backgroundColor,
       elevation: 0,
       shape: RoundedRectangleBorder(
-        side: BorderSide(color: foregroundColor.withOpacity(0.7), width: 1.5),
+        side: BorderSide(color: foregroundColor.withOpacity(0.7), width: 1),
         borderRadius: BorderRadius.circular(15),
       ),
     ),

@@ -65,7 +65,7 @@ class TaskItem extends StatelessWidget {
           builder: (context, value, _) => TaskTitle(taskItem: taskItem),
         ),
         subtitle: Text(
-          DateMethods.dateFormatter(taskItem.completedOn ?? taskItem.timeStamp),
+          DateMethods.dateFormatter(taskItem.timeStamp),
         ),
         trailing: Consumer<TaskModel>(
             builder: (context, value, child) =>
@@ -87,6 +87,7 @@ class TaskTitle extends StatelessWidget {
         style: const TextStyle(
           fontFamily: 'NotoSans',
           fontSize: 20,
+          overflow: TextOverflow.ellipsis,
         ),
       );
     } else {
@@ -97,6 +98,7 @@ class TaskTitle extends StatelessWidget {
           fontSize: 20,
           decoration: TextDecoration.lineThrough,
           fontWeight: FontWeight.w300,
+          overflow: TextOverflow.ellipsis,
         ),
       );
     }

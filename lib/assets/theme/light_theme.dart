@@ -13,7 +13,7 @@ ThemeData lightTheme() {
     ),
     scaffoldBackgroundColor: backgroundColor,
     cardTheme: CardTheme(
-      color: Colors.white.withOpacity(0.85),
+      color: backgroundColor,
       elevation: 5,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15),
