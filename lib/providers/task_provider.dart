@@ -11,22 +11,10 @@ class TaskProvider with ChangeNotifier {
   List<TaskModel> get getAllTasks => _allTasks;
 
   Future<void> fetchAndSetTodaysTasks() async {
-    final List<Map<String, dynamic>> dataList =
+    final List<Map<String, Object?>> dataList =
         await DBHelper.fetchTodaysTasks();
     _tasks = dataList
-        .map(
-          (element) => TaskModel(
-            taskTitle: element['title'] as String,
-            timeStamp: DateTime.parse(element['id'] as String),
-            isCompleted: (element['completed'] == 1) ? true : false,
-            deadline: element['deadline'] == null
-                ? null
-                : DateTime.parse(element['deadline']),
-            completedOn: element['completedOn'] == null
-                ? null
-                : DateTime.parse(element['completedOn']),
-          ),
-        )
+        .map((element) => TaskModel.fromMap(element))
         .toList()
         .reversed
         .toList();
@@ -34,19 +22,9 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetTasks() async {
-    final List<Map<String, dynamic>> dataList = await DBHelper.fetchTasks();
+    final List<Map<String, Object?>> dataList = await DBHelper.fetchTasks();
     _allTasks = dataList
-        .map((element) => TaskModel(
-              taskTitle: element['title'] as String,
-              timeStamp: DateTime.parse(element['id'] as String),
-              isCompleted: (element['completed'] == 1) ? true : false,
-              deadline: element['deadline'] == null
-                  ? null
-                  : DateTime.parse(element['deadline']),
-              completedOn: element['completedOn'] == null
-                  ? null
-                  : DateTime.parse(element['completedOn']),
-            ))
+        .map((element) => TaskModel.fromMap(element))
         .toList()
         .reversed
         .toList();
@@ -59,8 +37,9 @@ class TaskProvider with ChangeNotifier {
     final Map<String, Object> sqlData = {
       'id': task.timeStamp.toIso8601String(),
       'title': task.taskTitle,
-      'deadline': task.deadline?.toIso8601String() ?? 'NULL',
+      'deadline': task.deadline?.toIso8601String() ?? '',
       'completed': (task.isCompleted) ? 1 : 0,
+      'completedOn': '',
     };
     DBHelper.insertTask(sqlData);
   }

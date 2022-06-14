@@ -59,7 +59,6 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final taskItem = Provider.of<TaskModel>(context, listen: false);
-    print(taskItem.completedOn);
     return Card(
       child: ListTile(
         title: Consumer<TaskModel>(

@@ -22,7 +22,7 @@ class TaskMethods {
   }
 
   static void markTaskAsComplete(BuildContext context, TaskModel taskItem) {
-    taskItem.toggleTaskStatus();
+    taskItem.markTaskAsComplete();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(cheerMeUp[Random().nextInt(cheerMeUp.length)]),
