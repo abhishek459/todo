@@ -14,10 +14,8 @@ class DateMethods {
       return DateFormat('h:mm a').format(dateTime);
     } else if (differenceInDays < 7) {
       return DateFormat('EEE - h:mm a').format(dateTime);
-    } else if (dateTime.year != DateTime.now().year) {
-      return DateFormat('d-MMM-yyyy').format(dateTime);
     } else {
-      return DateFormat('d-MMM-yyyy hh:mm a').format(dateTime);
+      return DateFormat('d-MMM-yyyy').format(dateTime);
     }
   }
 
