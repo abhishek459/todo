@@ -1,6 +1,6 @@
-# to_do
+# Productivity
 
-A new Flutter project.
+A simple side project built in Flutter. This application is like a todo list which aims to offer insights about your consistency/performance over time as you use this app to keep track of your daily tasks.
 
 ## Getting Started
 
